@@ -1,0 +1,46 @@
+﻿@model Core.EntityModel.User
+
+@{
+    ViewBag.Title = "Registration";
+}
+
+<h2>Registration</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <div class="editor-label">@Html.LabelFor(u => u.Name)</div>
+        <div class="editor-field">
+            <div>@Html.TextBoxFor(u => u.Name)</div>
+            <div>@Html.ValidationMessageFor(u => u.Name)</div>
+        </div>
+
+        <div class="editor-label">@Html.LabelFor(u => u.Login)</div>
+        <div class="editor-field">
+            <div>@Html.TextBoxFor(u => u.Login)</div>
+            <div>@Html.ValidationMessageFor(u => u.Login)</div>
+        </div>
+
+        <div class="editor-label">@Html.LabelFor(u => u.Email)</div>
+        <div class="editor-field">
+            <div>@Html.TextBoxFor(u => u.Email)</div>
+            <div>@Html.ValidationMessageFor(u => u.Email)</div>
+        </div>
+
+        <div class="editor-label">@Html.LabelFor(u => u.Password)</div>
+        <div class="editor-field">
+            <div>@Html.EditorFor(u => u.Password)</div>
+            <div>@Html.ValidationMessageFor(u => u.Password)</div>
+        </div>
+
+        <div class="editor-label">@Html.LabelFor(u => u.ConfirmPassword)</div>
+        <div class="editor-field">
+            <div>@Html.EditorFor(u => u.ConfirmPassword)</div>
+            <div>@Html.ValidationMessageFor(u => u.ConfirmPassword)</div>
+        </div>
+
+        <div><input type="submit" value="Register" /></div>
+    </fieldset>
+   
+   
+}

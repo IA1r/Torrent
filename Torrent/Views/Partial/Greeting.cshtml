@@ -1,0 +1,21 @@
+﻿@if (!HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <p> Welcome, <b>Guest</b>! You can: </p>
+    <p> @Html.ActionLink("Login", "Login", "Account") or @Html.ActionLink("Registration", "Registration", "Account") </p>
+    
+   
+}
+else
+{
+    <div>
+        Hello, <b>@HttpContext.Current.User.Identity.Name</b> !<br>
+        @Html.ActionLink("Profile", "UserProfile", "Account", routeValues: new { login = HttpContext.Current.User.Identity.Name }, htmlAttributes: null)
+        @Html.ActionLink("Logout", "Logout", "Account", routeValues: null, htmlAttributes: null)
+    </div>
+    
+     if (HttpContext.Current.User.IsInRole("Admin"))
+    {
+         <p> @Html.ActionLink("Options", "Options", "Torrent") </p>
+    }
+    
+}

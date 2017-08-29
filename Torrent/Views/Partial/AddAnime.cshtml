@@ -1,0 +1,114 @@
+﻿@using Torrent.ViewModels;
+@using Core.Const;
+@model AddTorrentViewModel
+
+@using (Html.BeginForm("AddTorrent", "Torrent", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <fieldset style="width: 250px; float: left;">
+        <legend> Anime Info</legend>
+
+        <div style="float:left">
+            <div class="editor-label">@Html.Label(CharacteristicConst.Name)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["1"], htmlAttributes: new { required = "required" })</div>
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["1"])</div>
+            </div>
+
+            <div class="editor-label">@Html.LabelFor(model => model.Torrent.TorrentType)</div>
+            <div class="editor-field">@Html.TextBoxFor(model => model.Torrent.TorrentType, new { @Value = @Model.TorrentType })</div>
+
+            <div class="editor-field">@Html.Label(CharacteristicConst.Image)</div>
+            <div class="editor-field">
+                <input type="file" name="image" id="image" required="required" />
+                <div>@Html.ValidationMessage("image")</div>           
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Type)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["2"], htmlAttributes: new { required = "required" })</div>             
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["2"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Release)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["3"], htmlAttributes: new { required = "required" })</div>             
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["3"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Country)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["4"], htmlAttributes: new { required = "required" })</div>                
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["4"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Producer)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["5"], htmlAttributes: new { required = "required" })</div>      
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["5"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Scenario)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["6"], htmlAttributes: new { required = "required" })</div>              
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["6"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Source)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["7"], htmlAttributes: new { required = "required" })</div>              
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["7"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Studio)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["8"], htmlAttributes: new { required = "required" })</div>            
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["8"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Description)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["9"], htmlAttributes: new { required = "required" })</div>          
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["9"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Postproduction)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["10"], htmlAttributes: new { required = "required" })</div>             
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["10"])</div>
+            </div>
+
+            <div class="editor-label">@Html.Label(CharacteristicConst.Timing)</div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.Characteristics["11"], htmlAttributes: new { required = "required" })</div>              
+                <div>@Html.ValidationMessageFor(model => model.Torrent.Characteristics["11"])</div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset style="width: 250px; float: left; margin-left:10px">
+        <legend> Torrent File</legend>
+
+        <div>
+            <div>
+                @Html.Label("Path of Torrent file")
+            </div>
+            <div class="editor-field">
+                <input type="file" name="torrentFile" id="torrentFile" required="required" />
+                <div>@Html.ValidationMessage("torrentFile")</div>           
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Torrent.TorrentFile.Size)
+            </div>
+            <div class="editor-field">
+                <div>@Html.TextBoxFor(model => model.Torrent.TorrentFile.Size, htmlAttributes: new { required = "required" })</div>             
+                <div>@Html.ValidationMessageFor(model => model.Torrent.TorrentFile.Size)</div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div style="clear:both"></div>
+
+    <div><input type="submit" value="Add" /></div>
+
+}

@@ -1,0 +1,159 @@
+﻿@using Torrent.ViewModels;
+@using PagedList.Mvc;
+@using Newtonsoft.Json;
+@model TorrentViewModel
+
+
+
+@{
+    ViewBag.Title = "Torrent";
+    string userLogin = HttpContext.Current.User.Identity.Name;
+}
+
+@{
+    Html.RenderPartial("~/Views/Partial/" + Model.Torrent.TorrentType + ".cshtml", Model);
+    <br>
+    Html.RenderPartial("~/Views/Partial/TorrentFile.cshtml", Model);
+    Html.RenderPartial("~/Views/Partial/PopularTorrents.cshtml", Model);
+}
+
+
+<div class="comment">
+    <div class="comment_title">
+        Comments
+    </div>
+    <!--ko foreach: Comments-->
+        <div class="comments_text">
+            <div style="float:left">
+                <a data-bind="attr: { 'href': '@Url.Action("UserProfile", "Account")?login=' + Login() }, text: Login" class="decorationNo_2"></a>
+                <div> <img data-bind="attr: { src: Image, height: 140, width: 110 } " /></div>
+                <div data-bind="text: 'Downloads: ' + DownloadsCount()"></div>             
+            </div>
+            <div data-bind="text: 'Posted: ' + (PostedDate().getDate()) +'/'+  (PostedDate().getMonth() + 1) +'/'+  PostedDate().getFullYear() + ', '+ PostedDate().getHours() + ':' + PostedDate().getMinutes() " style="text-align: right; font-style: italic; color: #999"></div>
+            <div data-bind="text: CommentText(), visible: !IsEditMode()" style="float:right;margin-top:10px;height:110px;width:700px;overflow:auto"></div>
+            <div> <textarea data-bind="value: NewCommentText, visible:IsEditMode" class="comment-style"></textarea> </div>
+            <div style="clear:both"></div>
+
+            <!--ko if: LastEdit() != null-->
+            <div data-bind="text: 'Last edit: ' + (LastEdit().getDay() + 1) +'/'+  (LastEdit().getMonth() + 1) +'/'+  LastEdit().getFullYear() + ', '+ LastEdit().getHours() + ':' + LastEdit().getMinutes(), visible: true" style="float: right; font-style: italic; color: #999"></div>
+            <!--/ko-->
+            <!-- ko if: Login() == "@userLogin" -->
+            <div style="margin-left:770px;width:120px">
+                <button style="margin-left:51%" data-bind="click: function() { IsEditMode(true) }, visible: !IsEditMode()  ">Edit</button>
+                <button data-bind="click: SaveMessage, visible: IsEditMode ">Save</button>
+                <button data-bind="click: function(){ IsEditMode(false) },visible: IsEditMode">Close</button>
+            </div>            
+            <!-- /ko -->
+
+            <div style="clear:both"></div>
+        </div>
+        <br>
+    <div style="clear:both"></div>
+    <!-- /ko -->
+
+    <div style="margin-top:20px">
+        Page @(Model.Comments.PageCount < Model.Comments.PageNumber ? 0 : Model.Comments.PageNumber) of @Model.Comments.PageCount
+
+        @Html.PagedListPager(Model.Comments, page => Url.Action("Torrent", new { page }))
+    </div>
+
+    @if (!string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
+    {
+        <div>
+            @using (Html.BeginForm("AddComment", "Torrent", routeValues: new { id = Model.Torrent.ID }))
+            {
+                <div>
+                    <div>@Html.TextArea("comment", htmlAttributes: new { rows = "10", cols = "80", required = "required", @class = "comment-style-2" })</div>
+                    <div>@Html.ValidationMessage("comment")</div>
+
+                    <input type="submit" value="Send" style="float:left" />
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div style="margin:auto;width:400px">
+            Please @Html.ActionLink("Login", "Login", "Account") or @Html.ActionLink("Registration", "Registration", "Account") to send the message
+        </div>
+    }
+</div>
+
+
+<script>
+    CommentModel = @(new MvcHtmlString(JsonConvert.SerializeObject(Model.Comments)))
+</script>
+
+<script>
+    function Comment(data){
+        var model = this;
+
+        model.CommentID = ko.observable();
+        model.CommentText = ko.observable();
+        model.Login = ko.observable();
+        model.Image = ko.observable();
+        model.DownloadsCount = ko.observable();
+        model.PostedDate = ko.observable();
+        model.LastEdit = ko.observable();
+
+        model.NewCommentText = ko.observable();
+
+        model.IsEditMode = ko.observable(false);
+        model.IsEditMode.subscribe(function (newValue) {
+            if (newValue) {
+                model.NewCommentText(model.CommentText());
+            }
+        });
+        
+        model.SaveMessage = function () {
+
+            if(!IsEmptyOrSpaces(model.NewCommentText())){
+
+                model.CommentText(model.NewCommentText());
+                model.LastEdit(new Date());
+
+                model.IsEditMode(false); 
+                EditComment(model); // Comment.js
+            }
+        };
+    
+        function initialize() {
+
+            model.CommentID(data.ID);
+            model.CommentText(data.Comment);
+            model.Login(data.Author.Login);
+            model.Image(data.Author.Image);
+            model.DownloadsCount(data.Author.DownloadsCount);
+            model.PostedDate(new Date(data.PostedDate));
+
+            if(data.LastEdit != null)
+            {
+                model.LastEdit(new Date(data.LastEdit));
+            };
+        }
+
+        function IsEmptyOrSpaces(str){
+            return str === null || str.match(/^ *$/) !== null;
+        }
+
+        initialize();
+    }
+
+
+    function Comments(data){
+        var model = this;
+        
+        model.Comments = ko.observableArray();
+
+        function initialize() {
+            model.Comments(ko.utils.arrayMap(data, function (item, index) {
+                var commentModel = new Comment(item);
+                return commentModel;
+            }));
+        }
+        initialize();
+    }
+
+
+    ko.applyBindings(new Comments(CommentModel));
+</script>

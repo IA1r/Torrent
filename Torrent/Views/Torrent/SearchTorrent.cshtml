@@ -1,0 +1,35 @@
+﻿@using Torrent.ViewModels;
+@using Core.Const;
+@using Core.Dto;
+@model SearchViewModel
+
+@if (Model.Torrents != null)
+{
+    <table class="table-search">
+        @foreach (TorrentDto torrent in Model.Torrents)
+        {
+            <tr>
+                <td style="width:350px">
+                    @Html.ActionLink(@torrent.Characteristics[CharacteristicConst.Name], "Torrent", "torrent", routeValues: new { id = @torrent.ID }, htmlAttributes: new { @class = "decorationNo" })
+                </td>
+                <td style="width:10px;text-align:center">
+                    @torrent.TorrentType
+                </td>
+                <td style="width: 10px; text-align: center">
+                    @torrent.TorrentFile.DownloadsCount
+                </td>
+                <td style="width: 10px; text-align: center">
+                    @torrent.TorrentFile.Size
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div>
+        No Results.
+    </div>
+}
+
+

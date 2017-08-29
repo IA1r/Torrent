@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Torrent_dbModelStoreContainer" CdmEntityContainer="Torrent_dbEntities">
+    <EntitySetMapping Name="Characteristics">
+      <EntityTypeMapping TypeName="Torrent_dbModel.Characteristic">
+        <MappingFragment StoreEntitySet="Characteristic">
+          <ScalarProperty Name="CharacteristicID" ColumnName="CharacteristicID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="Torrent_dbModel.Message">
+        <MappingFragment StoreEntitySet="Message">
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="TorrentID" ColumnName="TorrentID" />
+          <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+          <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="Torrent_dbModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Torrents">
+      <EntityTypeMapping TypeName="Torrent_dbModel.Torrent">
+        <MappingFragment StoreEntitySet="Torrent">
+          <ScalarProperty Name="TorrentTypeID" ColumnName="TorrentTypeID" />
+          <ScalarProperty Name="TorrentID" ColumnName="TorrentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TorrentCharacteristics">
+      <EntityTypeMapping TypeName="Torrent_dbModel.TorrentCharacteristic">
+        <MappingFragment StoreEntitySet="TorrentCharacteristic">
+          <ScalarProperty Name="TorrentCharacteristicID" ColumnName="TorrentCharacteristicID" />
+          <ScalarProperty Name="TorrentID" ColumnName="TorrentID" />
+          <ScalarProperty Name="CharacteristicID" ColumnName="CharacteristicID" />
+          <ScalarProperty Name="CharacteristicValue" ColumnName="CharacteristicValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Torrent_dbModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+          <ScalarProperty Name="MessagesCount" ColumnName="MessagesCount" />
+          <ScalarProperty Name="DownloadsCount" ColumnName="DownloadsCount" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TorrentTypes">
+      <EntityTypeMapping TypeName="Torrent_dbModel.TorrentType">
+        <MappingFragment StoreEntitySet="TorrentType">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TorrentTypeID" ColumnName="TorrentTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

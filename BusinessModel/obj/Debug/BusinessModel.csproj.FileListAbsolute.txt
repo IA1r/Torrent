@@ -1,0 +1,11 @@
+D:\C#\Torrent\BusinessModel\bin\Debug\BusinessModel.dll
+D:\C#\Torrent\BusinessModel\bin\Debug\BusinessModel.pdb
+D:\C#\Torrent\BusinessModel\obj\Debug\BusinessModel.dll
+D:\C#\Torrent\BusinessModel\obj\Debug\BusinessModel.pdb
+D:\C#\Torrent\BusinessModel\obj\Debug\BusinessModel.csprojResolveAssemblyReference.cache
+D:\C#\Torrent\BusinessModel\bin\Debug\Core.dll
+D:\C#\Torrent\BusinessModel\bin\Debug\DataModel.dll
+D:\C#\Torrent\BusinessModel\bin\Debug\EntityFramework.dll
+D:\C#\Torrent\BusinessModel\bin\Debug\Core.pdb
+D:\C#\Torrent\BusinessModel\bin\Debug\DataModel.pdb
+D:\C#\Torrent\BusinessModel\bin\Debug\EntityFramework.xml

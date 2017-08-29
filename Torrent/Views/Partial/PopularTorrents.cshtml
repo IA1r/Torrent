@@ -1,0 +1,29 @@
+﻿@using Torrent.ViewModels;
+@using Core.Dto;
+@model TorrentViewModel
+
+<div class="popular_torrents">
+    <div class="popular_torrents_title">
+        Popular Torrents
+    </div>
+    @foreach (TorrentDto torrent in Model.PopularTorrents)
+    {
+        <div style="float: left; margin-left: 5px;">
+            <div>
+                <img src="@torrent.Characteristics["Image"]" height="200" width="138" style=" box-shadow: 2px 2px 6px rgba(0,0,0,0.6); border:solid 1px; height:200px; margin-top:5px" />
+            </div>
+            <div style="text-align:center; width:150px;height:40px">
+                @if (torrent.TorrentType == "Anime")
+                {
+
+                    @Html.ActionLink(torrent.Characteristics["Name"].Remove(torrent.Characteristics["Name"].IndexOf("/")), "Torrent", "Torrent", routeValues: new { id = torrent.ID }, htmlAttributes: new { @class = "decorationNo" })
+                }
+                else
+                {
+                    @Html.ActionLink(torrent.Characteristics["Name"], "Torrent", "Torrent", routeValues: new { id = torrent.ID }, htmlAttributes: new { @class = "decorationNo" })
+
+                }
+            </div>
+        </div>
+    }
+</div>

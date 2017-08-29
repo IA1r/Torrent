@@ -1,0 +1,24 @@
+﻿@using Torrent.ViewModels;
+@model SendMessageViewModel
+
+@{
+    ViewBag.Title = "SendMessage";
+}
+
+<h2>SendMessage</h2>
+
+
+<div>
+    @using (Html.BeginForm())
+    {
+        <div>@Html.TextBoxFor(model => model.ToUser.ID, new { @Value = @Model.ToUser.ID, hidden = "hidden" })</div>
+        
+        <div>To: @Model.ToUser.Login</div>
+        
+        <div>Title: @Html.TextBoxFor(u => u.Title)</div>
+        
+        <div>@Html.TextAreaFor(model => model.PrivateMessage.Message, htmlAttributes: new { rows = "10", cols = "80" })</div>
+        
+        <input type="submit" value="Send" /> 
+    }
+</div>

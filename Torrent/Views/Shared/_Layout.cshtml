@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/knockoutvalid")
+    @Scripts.Render("~/bundles/custom")
+
+</head>
+<body>
+    <div class="header">
+        <div class="headerText">
+            <a href="/Torrent/Torrents" style="color: black; text-decoration:none;font-size:50px">Torrent</a>
+        </div>
+        <div style="float:left;margin-top:50px">
+            @Html.ActionLink("Search", "Search", "Torrent", htmlAttributes: new { @class = "text_decoration", id = "button_heder" })
+            @Html.ActionLink("Anime", "Torrents", "Torrent", routeValues: new { type = "Anime" }, htmlAttributes: new { @class = "text_decoration", id = "button_heder" })
+            @Html.ActionLink("PC-Games", "Torrents", "Torrent", routeValues: new { type = "PC-Game" }, htmlAttributes: new { @class = "text_decoration", id = "button_heder" })
+            @Html.ActionLink("Films", "Torrents", "Torrent", routeValues: new { type = "Film" }, htmlAttributes: new { @class = "text_decoration", id = "button_heder" })
+            @Html.ActionLink("Serials", "Torrents", "Torrent", routeValues: new { type = "Serial" }, htmlAttributes: new { @class = "text_decoration", id = "button_heder" })         
+        </div>
+        <div class="greeting">
+            @Html.Partial("~/Views/Partial/Greeting.cshtml")
+        </div>
+    </div>
+
+    <div class="body">
+        @RenderBody()
+    </div>
+
+    <div style="clear:both"></div>
+
+    <div class="footer">
+        Torrent / ASP.NET MVC <br>
+        Created by Andrew Gumenyuk
+    </div>
+</body>
+</html>

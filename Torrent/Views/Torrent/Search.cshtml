@@ -1,0 +1,23 @@
+﻿@using Core.Dto
+@using Torrent.ViewModels
+@model SearchViewModel
+
+@{
+    ViewBag.Title = "Search";
+}
+
+
+<div class="search">
+    <div class="search_title">
+        Search
+    </div>
+    <div>
+        @using (Ajax.BeginForm("SearchTorrent", "Torrent", null, new AjaxOptions { UpdateTargetId = "torrent-results" }))
+        {
+            <input type="text" name="keyword" value="search..." onfocus="this.value = '';" size="100">
+            <input id="searchButton" type="submit" value="Search" />
+        }
+        <br>
+        <div id="torrent-results"></div>
+    </div>
+</div>

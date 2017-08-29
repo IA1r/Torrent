@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Torrent_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Characteristic">
+          <Key>
+            <PropertyRef Name="CharacteristicID" />
+          </Key>
+          <Property Name="CharacteristicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="TorrentID" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PostedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastEdit" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MessageTitle">
+          <Key>
+            <PropertyRef Name="MessageTitleID" />
+          </Key>
+          <Property Name="MessageTitleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromUserID" Type="int" Nullable="false" />
+          <Property Name="ToUserID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrivateMessage">
+          <Key>
+            <PropertyRef Name="PrivateMessageID" />
+          </Key>
+          <Property Name="PrivateMessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="MessageTitleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Torrent">
+          <Key>
+            <PropertyRef Name="TorrentID" />
+          </Key>
+          <Property Name="TorrentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TorrentTypeID" Type="int" Nullable="false" />
+          <Property Name="TorrentFileID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TorrentCharacteristic">
+          <Key>
+            <PropertyRef Name="TorrentCharacteristicID" />
+          </Key>
+          <Property Name="TorrentCharacteristicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TorrentID" Type="int" Nullable="false" />
+          <Property Name="CharacteristicID" Type="int" Nullable="false" />
+          <Property Name="CharacteristicValue" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TorrentFile">
+          <Key>
+            <PropertyRef Name="TorrentFileID" />
+          </Key>
+          <Property Name="TorrentFileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Size" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DownloadsCount" Type="int" />
+          <Property Name="AddedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TorrentType">
+          <Key>
+            <PropertyRef Name="TorrentTypeID" />
+          </Key>
+          <Property Name="TorrentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="14" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="nvarchar" MaxLength="14" Nullable="false" />
+          <Property Name="DownloadsCount" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comment_Torrent">
+          <End Role="Torrent" Type="Self.Torrent" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torrent">
+              <PropertyRef Name="TorrentID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TorrentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MessageTitle_UserFrom">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="MessageTitle" Type="Self.MessageTitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MessageTitle">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MessageTitle_UserTo">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="MessageTitle" Type="Self.MessageTitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MessageTitle">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateMessage_MessageTitle">
+          <End Role="MessageTitle" Type="Self.MessageTitle" Multiplicity="1" />
+          <End Role="PrivateMessage" Type="Self.PrivateMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MessageTitle">
+              <PropertyRef Name="MessageTitleID" />
+            </Principal>
+            <Dependent Role="PrivateMessage">
+              <PropertyRef Name="MessageTitleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateMessage_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="PrivateMessage" Type="Self.PrivateMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="PrivateMessage">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Torrent_TorrentFile">
+          <End Role="TorrentFile" Type="Self.TorrentFile" Multiplicity="1" />
+          <End Role="Torrent" Type="Self.Torrent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorrentFile">
+              <PropertyRef Name="TorrentFileID" />
+            </Principal>
+            <Dependent Role="Torrent">
+              <PropertyRef Name="TorrentFileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorrentCharacteristic_Characteristic">
+          <End Role="Characteristic" Type="Self.Characteristic" Multiplicity="1" />
+          <End Role="TorrentCharacteristic" Type="Self.TorrentCharacteristic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Characteristic">
+              <PropertyRef Name="CharacteristicID" />
+            </Principal>
+            <Dependent Role="TorrentCharacteristic">
+              <PropertyRef Name="CharacteristicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorrentCharacteristic_Torrent">
+          <End Role="Torrent" Type="Self.Torrent" Multiplicity="1" />
+          <End Role="TorrentCharacteristic" Type="Self.TorrentCharacteristic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torrent">
+              <PropertyRef Name="TorrentID" />
+            </Principal>
+            <Dependent Role="TorrentCharacteristic">
+              <PropertyRef Name="TorrentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Torrent_dbModelStoreContainer">
+          <EntitySet Name="Characteristic" EntityType="Self.Characteristic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessageTitle" EntityType="Self.MessageTitle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivateMessage" EntityType="Self.PrivateMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Torrent" EntityType="Self.Torrent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TorrentCharacteristic" EntityType="Self.TorrentCharacteristic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TorrentFile" EntityType="Self.TorrentFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TorrentType" EntityType="Self.TorrentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comment_Torrent" Association="Self.FK_Comment_Torrent">
+            <End Role="Torrent" EntitySet="Torrent" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MessageTitle_UserFrom" Association="Self.FK_MessageTitle_UserFrom">
+            <End Role="User" EntitySet="User" />
+            <End Role="MessageTitle" EntitySet="MessageTitle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MessageTitle_UserTo" Association="Self.FK_MessageTitle_UserTo">
+            <End Role="User" EntitySet="User" />
+            <End Role="MessageTitle" EntitySet="MessageTitle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateMessage_MessageTitle" Association="Self.FK_PrivateMessage_MessageTitle">
+            <End Role="MessageTitle" EntitySet="MessageTitle" />
+            <End Role="PrivateMessage" EntitySet="PrivateMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateMessage_User" Association="Self.FK_PrivateMessage_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="PrivateMessage" EntitySet="PrivateMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Torrent_TorrentFile" Association="Self.FK_Torrent_TorrentFile">
+            <End Role="TorrentFile" EntitySet="TorrentFile" />
+            <End Role="Torrent" EntitySet="Torrent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorrentCharacteristic_Characteristic" Association="Self.FK_TorrentCharacteristic_Characteristic">
+            <End Role="Characteristic" EntitySet="Characteristic" />
+            <End Role="TorrentCharacteristic" EntitySet="TorrentCharacteristic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorrentCharacteristic_Torrent" Association="Self.FK_TorrentCharacteristic_Torrent">
+            <End Role="Torrent" EntitySet="Torrent" />
+            <End Role="TorrentCharacteristic" EntitySet="TorrentCharacteristic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Torrent_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Characteristic">
+          <Key>
+            <PropertyRef Name="CharacteristicID" />
+          </Key>
+          <Property Name="CharacteristicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TorrentCharacteristics" Relationship="Self.FK_TorrentCharacteristic_Characteristic" FromRole="Characteristic" ToRole="TorrentCharacteristic" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Torrent">
+          <Key>
+            <PropertyRef Name="TorrentID" />
+          </Key>
+          <Property Name="TorrentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TorrentTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TorrentType" Relationship="Self.FK_Torrent_TorrentType" FromRole="Torrent" ToRole="TorrentType" />
+          <NavigationProperty Name="TorrentCharacteristics" Relationship="Self.FK_TorrentCharacteristic_Torrent" FromRole="Torrent" ToRole="TorrentCharacteristic" />
+          <Property Name="TorrentFileID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TorrentFile" Relationship="Torrent_dbModel.FK_Torrent_TorrentFile" FromRole="Torrent" ToRole="TorrentFile" />
+          <NavigationProperty Name="Comments" Relationship="Torrent_dbModel.FK_Comment_Torrent" FromRole="Torrent" ToRole="Comment" />
+        </EntityType>
+        <EntityType Name="TorrentCharacteristic">
+          <Key>
+            <PropertyRef Name="TorrentCharacteristicID" />
+          </Key>
+          <Property Name="TorrentCharacteristicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TorrentID" Type="Int32" Nullable="false" />
+          <Property Name="CharacteristicID" Type="Int32" Nullable="false" />
+          <Property Name="CharacteristicValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Characteristic" Relationship="Self.FK_TorrentCharacteristic_Characteristic" FromRole="TorrentCharacteristic" ToRole="Characteristic" />
+          <NavigationProperty Name="Torrent" Relationship="Self.FK_TorrentCharacteristic_Torrent" FromRole="TorrentCharacteristic" ToRole="Torrent" />
+        </EntityType>
+        <EntityType Name="TorrentType">
+          <Key>
+            <PropertyRef Name="TorrentTypeID" />
+          </Key>
+          <Property Name="TorrentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Torrents" Relationship="Self.FK_Torrent_TorrentType" FromRole="TorrentType" ToRole="Torrent" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DownloadsCount" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comments" Relationship="Torrent_dbModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="MessageTitlesFrom" Relationship="Torrent_dbModel.FK_MessageTitle_UserFrom" FromRole="User" ToRole="MessageTitle" />
+          <NavigationProperty Name="MessageTitlesTo" Relationship="Torrent_dbModel.FK_MessageTitle_UserTo" FromRole="User" ToRole="MessageTitle" />
+          <NavigationProperty Name="PrivateMessages" Relationship="Torrent_dbModel.FK_PrivateMessage_User" FromRole="User" ToRole="PrivateMessage" />
+        </EntityType>
+        <Association Name="FK_TorrentCharacteristic_Characteristic">
+          <End Role="Characteristic" Type="Self.Characteristic" Multiplicity="1" />
+          <End Role="TorrentCharacteristic" Type="Self.TorrentCharacteristic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Characteristic">
+              <PropertyRef Name="CharacteristicID" />
+            </Principal>
+            <Dependent Role="TorrentCharacteristic">
+              <PropertyRef Name="CharacteristicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Torrent_TorrentType">
+          <End Role="TorrentType" Type="Self.TorrentType" Multiplicity="1" />
+          <End Role="Torrent" Type="Self.Torrent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorrentType">
+              <PropertyRef Name="TorrentTypeID" />
+            </Principal>
+            <Dependent Role="Torrent">
+              <PropertyRef Name="TorrentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TorrentCharacteristic_Torrent">
+          <End Role="Torrent" Type="Self.Torrent" Multiplicity="1" />
+          <End Role="TorrentCharacteristic" Type="Self.TorrentCharacteristic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torrent">
+              <PropertyRef Name="TorrentID" />
+            </Principal>
+            <Dependent Role="TorrentCharacteristic">
+              <PropertyRef Name="TorrentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Torrent_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Characteristics" EntityType="Self.Characteristic" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Torrents" EntityType="Self.Torrent" />
+          <EntitySet Name="TorrentCharacteristics" EntityType="Self.TorrentCharacteristic" />
+          <EntitySet Name="TorrentTypes" EntityType="Self.TorrentType" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_TorrentCharacteristic_Characteristic" Association="Self.FK_TorrentCharacteristic_Characteristic">
+            <End Role="Characteristic" EntitySet="Characteristics" />
+            <End Role="TorrentCharacteristic" EntitySet="TorrentCharacteristics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Torrent_TorrentType" Association="Self.FK_Torrent_TorrentType">
+            <End Role="TorrentType" EntitySet="TorrentTypes" />
+            <End Role="Torrent" EntitySet="Torrents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TorrentCharacteristic_Torrent" Association="Self.FK_TorrentCharacteristic_Torrent">
+            <End Role="Torrent" EntitySet="Torrents" />
+            <End Role="TorrentCharacteristic" EntitySet="TorrentCharacteristics" />
+          </AssociationSet>
+          <EntitySet Name="TorrentFiles" EntityType="Torrent_dbModel.TorrentFile" />
+          <AssociationSet Name="FK_Torrent_TorrentFile" Association="Torrent_dbModel.FK_Torrent_TorrentFile">
+            <End Role="TorrentFile" EntitySet="TorrentFiles" />
+            <End Role="Torrent" EntitySet="Torrents" />
+          </AssociationSet>
+          <EntitySet Name="Comments" EntityType="Torrent_dbModel.Comment" />
+          <AssociationSet Name="FK_Comment_Torrent" Association="Torrent_dbModel.FK_Comment_Torrent">
+            <End Role="Torrent" EntitySet="Torrents" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_User" Association="Torrent_dbModel.FK_Comment_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <EntitySet Name="PrivateMessages" EntityType="Torrent_dbModel.PrivateMessage" />
+          <EntitySet Name="MessageTitles" EntityType="Torrent_dbModel.MessageTitle" />
+          <AssociationSet Name="FK_MessageTitle_UserFrom" Association="Torrent_dbModel.FK_MessageTitle_UserFrom">
+            <End Role="User" EntitySet="Users" />
+            <End Role="MessageTitle" EntitySet="MessageTitles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MessageTitle_UserTo" Association="Torrent_dbModel.FK_MessageTitle_UserTo">
+            <End Role="User" EntitySet="Users" />
+            <End Role="MessageTitle" EntitySet="MessageTitles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateMessage_MessageTitle" Association="Torrent_dbModel.FK_PrivateMessage_MessageTitle">
+            <End Role="MessageTitle" EntitySet="MessageTitles" />
+            <End Role="PrivateMessage" EntitySet="PrivateMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateMessage_User" Association="Torrent_dbModel.FK_PrivateMessage_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PrivateMessage" EntitySet="PrivateMessages" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TorrentFile">
+          <Key>
+            <PropertyRef Name="TorrentFileID" />
+          </Key>
+          <Property Name="TorrentFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DownloadsCount" Type="Int32" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Torrents" Relationship="Torrent_dbModel.FK_Torrent_TorrentFile" FromRole="TorrentFile" ToRole="Torrent" />
+        </EntityType>
+        <Association Name="FK_Torrent_TorrentFile">
+          <End Type="Torrent_dbModel.TorrentFile" Role="TorrentFile" Multiplicity="1" />
+          <End Type="Torrent_dbModel.Torrent" Role="Torrent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TorrentFile">
+              <PropertyRef Name="TorrentFileID" />
+            </Principal>
+            <Dependent Role="Torrent">
+              <PropertyRef Name="TorrentFileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorID" Type="Int32" Nullable="false" />
+          <Property Name="TorrentID" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PostedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Torrent" Relationship="Torrent_dbModel.FK_Comment_Torrent" FromRole="Comment" ToRole="Torrent" />
+          <NavigationProperty Name="User" Relationship="Torrent_dbModel.FK_Comment_User" FromRole="Comment" ToRole="User" />
+          <Property Name="LastEdit" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Comment_Torrent">
+          <End Type="Torrent_dbModel.Torrent" Role="Torrent" Multiplicity="1" />
+          <End Type="Torrent_dbModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torrent">
+              <PropertyRef Name="TorrentID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TorrentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_User">
+          <End Type="Torrent_dbModel.User" Role="User" Multiplicity="1" />
+          <End Type="Torrent_dbModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PrivateMessage">
+          <Key>
+            <PropertyRef Name="PrivateMessageID" />
+          </Key>
+          <Property Name="PrivateMessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorID" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MessageTitleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MessageTitle" Relationship="Torrent_dbModel.FK_PrivateMessage_MessageTitle" FromRole="PrivateMessage" ToRole="MessageTitle" />
+          <NavigationProperty Name="User" Relationship="Torrent_dbModel.FK_PrivateMessage_User" FromRole="PrivateMessage" ToRole="User" />
+        </EntityType>
+        <EntityType Name="MessageTitle">
+          <Key>
+            <PropertyRef Name="MessageTitleID" />
+          </Key>
+          <Property Name="MessageTitleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromUserID" Type="Int32" Nullable="false" />
+          <Property Name="ToUserID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserFrom" Relationship="Torrent_dbModel.FK_MessageTitle_UserFrom" FromRole="MessageTitle" ToRole="User" />
+          <NavigationProperty Name="UserTo" Relationship="Torrent_dbModel.FK_MessageTitle_UserTo" FromRole="MessageTitle" ToRole="User" />
+          <NavigationProperty Name="PrivateMessages" Relationship="Torrent_dbModel.FK_PrivateMessage_MessageTitle" FromRole="MessageTitle" ToRole="PrivateMessage" />
+        </EntityType>
+        <Association Name="FK_MessageTitle_UserFrom">
+          <End Type="Torrent_dbModel.User" Role="User" Multiplicity="1" />
+          <End Type="Torrent_dbModel.MessageTitle" Role="MessageTitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MessageTitle">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MessageTitle_UserTo">
+          <End Type="Torrent_dbModel.User" Role="User" Multiplicity="1" />
+          <End Type="Torrent_dbModel.MessageTitle" Role="MessageTitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MessageTitle">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateMessage_MessageTitle">
+          <End Type="Torrent_dbModel.MessageTitle" Role="MessageTitle" Multiplicity="1" />
+          <End Type="Torrent_dbModel.PrivateMessage" Role="PrivateMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MessageTitle">
+              <PropertyRef Name="MessageTitleID" />
+            </Principal>
+            <Dependent Role="PrivateMessage">
+              <PropertyRef Name="MessageTitleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateMessage_User">
+          <End Type="Torrent_dbModel.User" Role="User" Multiplicity="1" />
+          <End Type="Torrent_dbModel.PrivateMessage" Role="PrivateMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="PrivateMessage">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Torrent_dbModelStoreContainer" CdmEntityContainer="Torrent_dbEntities">
+          <EntitySetMapping Name="Characteristics">
+            <EntityTypeMapping TypeName="Torrent_dbModel.Characteristic">
+              <MappingFragment StoreEntitySet="Characteristic">
+                <ScalarProperty Name="CharacteristicID" ColumnName="CharacteristicID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Torrent_dbModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Torrents">
+            <EntityTypeMapping TypeName="Torrent_dbModel.Torrent">
+              <MappingFragment StoreEntitySet="Torrent">
+                <ScalarProperty Name="TorrentFileID" ColumnName="TorrentFileID" />
+                <ScalarProperty Name="TorrentID" ColumnName="TorrentID" />
+                <ScalarProperty Name="TorrentTypeID" ColumnName="TorrentTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TorrentCharacteristics">
+            <EntityTypeMapping TypeName="Torrent_dbModel.TorrentCharacteristic">
+              <MappingFragment StoreEntitySet="TorrentCharacteristic">
+                <ScalarProperty Name="TorrentCharacteristicID" ColumnName="TorrentCharacteristicID" />
+                <ScalarProperty Name="TorrentID" ColumnName="TorrentID" />
+                <ScalarProperty Name="CharacteristicID" ColumnName="CharacteristicID" />
+                <ScalarProperty Name="CharacteristicValue" ColumnName="CharacteristicValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TorrentTypes">
+            <EntityTypeMapping TypeName="Torrent_dbModel.TorrentType">
+              <MappingFragment StoreEntitySet="TorrentType">
+                <ScalarProperty Name="TorrentTypeID" ColumnName="TorrentTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Torrent_dbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+                <ScalarProperty Name="DownloadsCount" ColumnName="DownloadsCount" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TorrentFiles">
+            <EntityTypeMapping TypeName="Torrent_dbModel.TorrentFile">
+              <MappingFragment StoreEntitySet="TorrentFile">
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="DownloadsCount" ColumnName="DownloadsCount" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="TorrentFileID" ColumnName="TorrentFileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="Torrent_dbModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="LastEdit" ColumnName="LastEdit" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="TorrentID" ColumnName="TorrentID" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivateMessages">
+            <EntityTypeMapping TypeName="Torrent_dbModel.PrivateMessage">
+              <MappingFragment StoreEntitySet="PrivateMessage">
+                <ScalarProperty Name="MessageTitleID" ColumnName="MessageTitleID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="PrivateMessageID" ColumnName="PrivateMessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageTitles">
+            <EntityTypeMapping TypeName="Torrent_dbModel.MessageTitle">
+              <MappingFragment StoreEntitySet="MessageTitle">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
+                <ScalarProperty Name="MessageTitleID" ColumnName="MessageTitleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

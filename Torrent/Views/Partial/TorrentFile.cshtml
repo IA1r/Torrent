@@ -1,0 +1,49 @@
+﻿@using Torrent.ViewModels;
+@using Core.Const;
+@model TorrentViewModel
+
+<div class="torrent_file">
+    <div class="torrent_title">
+        Torrent File
+    </div>
+    <div>
+        @if (Model.Torrent.Characteristics.ContainsKey("Sound") || Model.Torrent.Characteristics.ContainsKey("Video"))
+        {
+            <div style="float:left">
+                <div>
+                    <span style="font-weight:bold"> Sound:</span>
+                    <span style="font-style:italic">@Model.Torrent.Characteristics["Sound"] </span>
+                </div>
+
+                <div>
+                    <span style="font-weight:bold"> Video:</span>
+                    <span style="font-style:italic">@Model.Torrent.Characteristics["Video"] </span>
+                </div>
+            </div>
+        }
+
+        <div style="float:left;margin-left:50px">
+            <div>
+                <span style="font-weight:bold"> Added:</span>
+                <span style="font-style:italic">@Model.Torrent.TorrentFile.AddedDate </span>
+            </div>
+
+            <div>
+                <div style="width:80px;float:left">
+                    <img src="/Content/Images/size.png" />
+                    <span style="font-weight:bold"> @Model.Torrent.TorrentFile.Size</span>
+                </div>
+
+                <div style="min-width:10px;float:left">
+                    <img src="/Content/Images/d_count.png" />
+                    <span style="font-weight:bold"> @Model.Torrent.TorrentFile.DownloadsCount</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="button">
+        @Html.ActionLink("Download", "Download", "Torrent", routeValues: new { filePath = Model.Torrent.TorrentFile.Path }, htmlAttributes: new { @class = "text_decoration", id = "button" })
+    </div>
+</div>

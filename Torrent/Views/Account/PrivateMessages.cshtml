@@ -1,0 +1,56 @@
+﻿@using Torrent.ViewModels;
+@using Core.Dto;
+@model PrivateMessagesViewModel
+
+@{
+    ViewBag.Title = "PrivateMessages";
+    string userLogin = HttpContext.Current.User.Identity.Name;
+}
+
+
+<div class="message_title">
+    <div class="message_title_title">
+        PrivateMessages
+    </div>
+    <div style="float:left">
+        @if (Model.Titles.Count() == 0)
+        {
+            <div>No messages</div>
+        }
+        <table class="table">
+            @foreach (MessageTitleDto title in Model.Titles)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(@title.Title, "PrivateMessage", "Account", routeValues: new { id = @title.ID }, htmlAttributes: new { @class = "decorationNo" })
+                    </td>
+                    @if (Model.Type == "input")
+                    {
+                        <td style="width:10px">
+                            @title.FromUser.Login
+                        </td>
+                    }
+                    @if (Model.Type == "output")
+                    {
+                        <td style="width:10px">
+                            @title.ToUser.Login
+                        </td>
+                    }
+
+                </tr>
+            }
+        </table>
+    </div>
+
+
+    <div style="float:left; margin-left: 270px">
+        <div>
+            @Html.ActionLink("Input Messages", "PrivateMessages", "Account", routeValues: new { type = "input" }, htmlAttributes: new { @class = "decorationNo" })
+        </div>
+        <div>
+            @Html.ActionLink("Output Messages", "PrivateMessages", "Account", routeValues: new { type = "output" }, htmlAttributes: new { @class = "decorationNo" })
+        </div>
+
+    </div>
+    <div style="clear:both"></div>
+</div>

@@ -1,0 +1,100 @@
+﻿@using Torrent.ViewModels;
+@using Newtonsoft.Json;
+@model ProfileViewModel
+
+@{
+    ViewBag.Title = "UserProfile";
+    string userLogin = HttpContext.Current.User.Identity.Name;
+}
+
+<div class=" user_profile">
+    <div class="user_profile_title">
+        <div data-bind="text: Name"></div>
+    </div>
+
+    <div style="float:left;">
+        <div><img data-bind="attr: { src: Image, height: 200, width: 163 }" /></div>
+        <form method="post" enctype="multipart/form-data"><input type="file" data-bind="value: NewImage,visible: IsEditMode" /></form>
+        <div data-bind="text: 'Downloads: ' + DownloadsCount()"></div>
+        <div data-bind="text: 'Role: ' + Role()"></div>
+        <div data-bind="text: 'Registration: ' + + (RegistrationDate().getDate()) +'/'+  (RegistrationDate().getMonth() + 1) +'/'+  RegistrationDate().getFullYear()"></div>
+    </div>
+
+    <div style="float:left;margin-left:20px;">
+        <div data-bind="text: 'Name: ' + Name()"></div>
+        <div data-bind="text: 'Login: ' + Login()"></div>
+        <div data-bind="visible:IsEditMode">Password: <input type="text" data-bind="value: NewPassword" /></div>
+        <div data-bind="text: 'Email: ' + Email(),visible: !IsEditMode()"></div>
+        <div data-bind="visible:IsEditMode">Email: <input type="text" data-bind="value: NewEmail" /></div>
+    </div>
+
+    <!-- ko if: Login() != "@userLogin"-->
+    <div style="float:right">
+        @Html.ActionLink("Send Mesage", "SendMessage", "Account", routeValues: new { ToUserID = @Model.UserProfile.ID }, htmlAttributes: new { @class = "decorationNo" })
+    </div>
+    <!-- /ko-->
+    <!-- ko if: Login() === "@userLogin" -->
+    <div style="float:right">
+        @Html.ActionLink("Mesages", "PrivateMessages", "Account", routeValues: null, htmlAttributes: new { @class = "decorationNo" })
+    </div>
+    <div style="margin-top:40%; margin-left:550px;width:120px">
+        <button style="margin-left:51%" data-bind="click: function() { IsEditMode(true) }, visible: !IsEditMode()">Edit</button>
+        <button data-bind="click: function(){ IsEditMode(false) }, visible: IsEditMode">Close</button>
+        <button data-bind="click: SaveProfile, visible: IsEditMode">Save</button>
+    </div>
+    <!-- /ko -->
+
+    <div style="clear:both"></div>
+</div>
+
+<script>
+    ProfileModel = @(new MvcHtmlString(JsonConvert.SerializeObject(Model.UserProfile)))
+</script>
+
+<script>
+    function UserProfile(data){
+        var model = this;
+
+        model.Id = ko.observable(data.ID);
+        model.Name = ko.observable(data.Name);
+        model.Login = ko.observable(data.Login);
+        model.Password = ko.observable(data.Password);
+        model.DownloadsCount = ko.observable(data.DownloadsCount);
+        model.Email = ko.observable(data.Email);
+        model.RegistrationDate = ko.observable( new Date(data.RegistrationDate));
+        model.Role = ko.observable(data.Role);
+        model.Image = ko.observable(data.Image);
+
+
+        model.NewPassword = ko.observable(data.Password).extend({ required: true });
+        model.NewImage = ko.observable(data.Image);
+        model.NewEmail = ko.observable(data.Email).extend({ required: true });
+
+        model.IsEditMode = ko.observable(false);
+        model.IsEditMode.subscribe(function (newValue) {
+            if (newValue) {
+                model.NewImage(model.Image());
+                model.NewPassword(model.Password());
+                model.NewEmail(model.Email());
+            }
+        });
+
+        model.SaveProfile = function () {
+            if(!IsEmptyOrSpaces(model.NewPassword()) && !IsEmptyOrSpaces(model.NewEmail())){
+                model.Image(model.NewImage());
+                model.Password(model.NewPassword());
+                model.Email(model.NewEmail());
+
+                model.IsEditMode(false);
+                UpdateProfile(model);
+            }
+        }
+
+        function IsEmptyOrSpaces(str){
+            return str === null || str.match(/^ *$/) !== null;
+        }
+
+    };
+
+    ko.applyBindings(new UserProfile(ProfileModel));
+</script>

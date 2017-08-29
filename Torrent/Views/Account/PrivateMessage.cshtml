@@ -1,0 +1,63 @@
+﻿@using Torrent.ViewModels;
+@using Core.Dto;
+@using PagedList.Mvc;
+@model PrivateMessagesViewModel
+
+@{
+    ViewBag.Title = "PrivateMessage";
+    string userLogin = HttpContext.Current.User.Identity.Name;
+}
+
+
+
+<div class="private_message">
+    <div class="provate_message_title">
+        @Model.Title.Title
+    </div>
+
+    @foreach (PrivateMessageDto message in Model.Messages)
+    {
+        if (message.Author.Login != userLogin)
+        {
+            <div class="private_message_text_Him">
+                <div style="float:left">@message.Author.Login:</div>
+                <div style="float:left; margin-left:10px;width:400px;">@message.Message</div>
+                <div style="float: left; margin-left: 90px; font-style: italic; color: #999">@message.CreationDate</div>
+                <div style="clear:both"></div>
+            </div>
+            <br>
+        }
+        else
+        {
+            <div class="private_message_text_Self">
+                <div style="float:left">@message.Author.Login:</div>
+                <div style="float:left; margin-left:10px;width:400px;">@message.Message</div>
+                <div style="float: left; margin-left: 90px; font-style: italic; color: #6e8b93">@message.CreationDate</div>
+                <div style="clear:both"></div>
+            </div>
+            <br>
+        }
+    }
+
+
+    <div style="float:right">
+        @using (Html.BeginForm("PrivateMessage", "Account", routeValues: new { id = Model.Title.ID }))
+        {
+            <div style="text-align:center">
+                @Html.TextArea("message", htmlAttributes: new { rows = "6", cols = "75" })
+                <input type="submit" value="Send" />
+            </div>
+        }
+    </div>
+    <div style="clear:both"></div>
+</div>
+<div style="margin-top:20px;margin-left:210px">
+    Page @(Model.Messages.PageCount < Model.Messages.PageNumber ? 0 : Model.Messages.PageNumber) of @Model.Messages.PageCount
+
+    @Html.PagedListPager(Model.Messages, page => Url.Action("PrivateMessage", new { page }))
+</div>
+<br>
+
+
+
+

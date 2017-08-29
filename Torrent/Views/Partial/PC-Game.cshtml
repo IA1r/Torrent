@@ -1,0 +1,105 @@
+﻿@using Torrent.ViewModels;
+@using Core.Const;
+@model TorrentViewModel
+
+
+
+<div class="torrent_info">
+
+    <div class="torrent_title">
+        @Model.Torrent.Characteristics[CharacteristicConst.Name]
+    </div>
+
+    <div style="width: 300px;float:left;">
+        <img id="img" src="@Model.Torrent.Characteristics[CharacteristicConst.Image]" height="400" />
+    </div>
+
+    <div style="width: 700px; float: right; margin-right: 200px;">
+
+        <div style="font-size:20px">Torrent information: </div>
+
+        <div>
+            <div>
+                @Html.Label("Name", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Name]
+            </div>
+
+            <div>
+                @Html.Label("Genre", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Genre]
+            </div>
+
+            <div>
+                @Html.Label("Developer", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Developer]
+            </div>
+
+            <div>
+                @Html.Label("Publisher", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Publisher]
+            </div>
+
+            <div>
+                @Html.Label("Release", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Release]
+            </div>
+
+            <div>
+                @Html.Label("InterfaceLanguage", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.InterfaceLanguage]
+            </div>
+
+            <div>
+                @Html.Label("SoundLanguage", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.SoundLanguage]
+            </div>
+
+            <div>
+                @Html.Label("Description", new { @class = "information" }):
+                <div style=" overflow: auto; height:200px">
+                    @Model.Torrent.Characteristics[CharacteristicConst.Description]
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <div>
+                @Html.Label("OS", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.OS]
+            </div>
+
+            <div>
+                @Html.Label("Processor", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Processor]
+            </div>
+
+            <div>
+                @Html.Label("Memory", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Memory]
+            </div>
+
+            <div>
+                @Html.Label("Graphics", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Graphics]
+            </div>
+
+            <div>
+                @Html.Label("DirectX", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.DirectX]
+            </div>
+
+            <div>
+                @Html.Label("Network", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Network]
+            </div>
+
+            <div>
+                @Html.Label("Storage", new { @class = "information" }):
+                @Model.Torrent.Characteristics[CharacteristicConst.Storage]
+            </div>
+        </div>
+
+    </div>
+    <div style="clear:both"></div>
+
+</div>

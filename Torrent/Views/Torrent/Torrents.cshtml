@@ -1,0 +1,34 @@
+﻿@using Torrent.ViewModels;
+@using PagedList.Mvc;
+@model TorrentViewModel
+
+
+
+
+@{
+    ViewBag.Title = "Torrents";
+}
+
+<h2>Torrents</h2>
+
+@foreach (var torrent in Model.Torrents)
+{
+    <div class="torrent-list">
+
+        <a href="/Torrent/Torrent/@torrent.ID">
+            <img class="img" src="@torrent.Characteristics["Image"]" width="230" height="320"> <br>
+        </a>
+        <div>
+            @Html.ActionLink(torrent.Characteristics["Name"], "Torrent", "Torrent", routeValues: new { id = torrent.ID }, htmlAttributes: new { @class = "decorationNo" })
+        </div>
+    </div>
+}
+
+<div style="clear:both"></div>
+<div style="margin-top:20px">
+    Page @(Model.Torrents.PageCount < Model.Torrents.PageNumber ? 0 : Model.Torrents.PageNumber) of @Model.Torrents.PageCount
+
+    @Html.PagedListPager(Model.Torrents, page => Url.Action("Torrents", new { page }))
+</div>
+
+<div style="clear:both"></div>

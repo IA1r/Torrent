@@ -1,0 +1,23 @@
+﻿@using Torrent.ViewModels;
+@model Torrent.ViewModels.AddTorrentViewModel
+
+@{
+    ViewBag.Title = "AddTorrent";
+}
+
+@using (Html.BeginForm())
+{
+    <p> @Html.DropDownListFor(model => model.TorrentType, Model.ListTypes, new { onchange = "this.form.submit();" }) </p>
+}
+
+@if (HttpContext.Current.Request.RequestType == "GET")
+{
+    Html.RenderPartial("~/Views/Partial/" + "Add" + Model.ListTypes[0].Value + ".cshtml", Model);
+}
+
+@if (HttpContext.Current.Request.RequestType == "POST")
+{
+    {
+        Html.RenderPartial("~/Views/Partial/" + "Add" + Model.TorrentType + ".cshtml", Model);
+    }
+}

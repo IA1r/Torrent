@@ -1,0 +1,30 @@
+﻿@model Torrent.RequestModel.LoginRequestModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">@Html.LabelFor(u => u.Login)</div>
+        <div class="editor-field">
+            <div>@Html.TextBoxFor(u => u.Login)</div>
+            <div>@Html.ValidationMessageFor(u => u.Login)</div>
+        </div>
+
+        <div class="editor-label">@Html.LabelFor(u => u.Password)</div>
+        <div class="editor-field">
+            <div>@Html.EditorFor(u => u.Password)</div>
+            <div>@Html.ValidationMessageFor(u => u.Password)</div>
+        </div>
+
+        <div class="editor-label">@Html.LabelFor(u => u.RememberMe)</div>
+        <div class="editor-field">@Html.EditorFor(u => u.RememberMe)</div>
+ 
+        <div><input type="submit" value="Login" /></div>
+    </fieldset>
+}

@@ -1,0 +1,413 @@
+﻿.header {
+    position: relative;
+    width: 98%;
+    min-width: 1300px;
+    padding: 20px;
+    border: solid;
+    margin: auto;
+    height: 80px;
+    background-color: #CACFD8;
+}
+
+.footer {
+    position: relative;
+    width: 98%;
+    padding: 8px;
+    min-width: 1300px;
+    border: solid;
+    margin: auto;
+    background-color: #CACFD8;
+    text-align: center;
+    display: block;
+}
+
+.body {
+    width: 70%;
+    min-width: 1300px;
+    margin: auto;
+    position: relative;
+    display: block;
+    min-height:900px;
+}
+
+.headerText {
+    width: 350px;
+    float: left;
+}
+
+.greeting {
+    float: right;
+    position: relative;
+}
+
+.torrent-list {
+    font-size: 12px;
+    width: 20%;
+    height: 360px;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+.information {
+    font-weight: bold;
+}
+
+.torrent_info {
+    position: relative;
+    height: 100%;
+    display: block;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    padding: 0.8em;
+    border-radius: 6px;
+}
+
+.torrent_title {
+    margin-left: -1.1em;
+    margin-right: -1.1em;
+    background-color: #ddd;
+    padding: 0.4em 1em;
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}
+
+.comment-style {
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-style: italic;
+    float: right;
+    margin-top: 10px;
+    height: 110px;
+    width: 700px;
+}
+
+.comment-style-2 {
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-style: italic;
+    height: 110px;
+    width: 700px;
+}
+
+#img {
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    width: 300px;
+    border: solid 1px;
+}
+
+.img {
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    border: solid 1px black;
+}
+
+.torrent_file {
+    position: relative;
+    min-height: 10px;
+    display: block;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    padding: 0.8em;
+    border-radius: 6px;
+    float: right;
+}
+
+#button {
+    float: right;
+    width: 150px;
+    text-align: center;
+    padding: 5px;
+    background-color: #ddd;
+    transition-duration: 0.3s;
+    transition-property: box-shadow;
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    margin-left: 30px;
+}
+
+#button-2 {
+    width: 150px;
+    text-align: center;
+    padding: 5px;
+    background-color: #ddd;
+    transition-duration: 0.3s;
+    transition-property: box-shadow;
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    float:left;
+}
+
+#button_heder {
+    float: right;
+    width: 150px;
+    text-align: center;
+    padding: 5px;
+    background-color: #ddd;
+    transition-duration: 0.3s;
+    transition-property: box-shadow;
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    margin-left: 30px;
+}
+
+#searchButton {
+    width: 150px;
+    text-align: center;
+    padding: 5px;
+    background-color: #ddd;
+    transition-duration: 0.3s;
+    transition-property: box-shadow;
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    margin-left: 30px;
+}
+
+ #searchButton:hover {
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.6);
+    }
+
+    #button_heder:hover {
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.6);
+    }
+
+#button:hover {
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.6);
+    color: green;
+}
+
+#button-2:hover {
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.6);
+    color: green;
+}
+
+.comment {
+    position: relative;
+    height: 100%;
+    display: block;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    padding: 0.8em;
+    border-radius: 6px;
+    width: 900px;
+    float: right;
+    margin-top: 20px;
+}
+
+.comment_title {
+    margin-left: -1.1em;
+    margin-right: -1.1em;
+    background-color: #ddd;
+    padding: 0.4em 1em;
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}
+
+.comments_text {
+    width: 98%;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    padding: 0.5em;
+}
+
+.popular_torrents {
+    position: relative;
+    height: 100%;
+    display: block;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    padding: 0.8em;
+    border-radius: 6px;
+    width: 350px;
+    float: left;
+}
+
+.popular_torrents_title {
+    margin-left: -1.1em;
+    margin-right: -1.1em;
+    background-color: #ddd;
+    padding: 0.4em 1em;
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}
+
+
+.user_profile {
+    position: relative;
+    height: 100%;
+    display: block;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    padding: 0.8em;
+    border-radius: 6px;
+    width: 50%;
+    margin: auto;
+}
+
+.user_profile_title {
+    margin-left: -1.1em;
+    margin-right: -1.1em;
+    background-color: #ddd;
+    padding: 0.4em 1em;
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}
+
+
+.provate_message_title {
+    margin-left: -1.1em;
+    margin-right: -1.1em;
+    background-color: #ddd;
+    padding: 0.4em 1em;
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}
+
+.private_message {
+    position: relative;
+    height: 100%;
+    display: block;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    padding: 0.8em;
+    border-radius: 6px;
+    width: 900px;
+    margin-top: 20px;
+    margin: auto;
+}
+
+.private_message_text_Self {
+    width: 75%;
+    background-color: #92d0e1;
+    border-radius: 6px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    padding: 0.5em;
+    border: solid 1px #92d0e1;
+    margin-left: 200px;
+}
+
+.private_message_text_Him {
+    width: 75%;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    padding: 0.5em;
+    border: solid 1px #f1f1f1;
+}
+
+
+.message_title {
+    position: relative;
+    height: 100%;
+    display: block;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    padding: 0.8em;
+    border-radius: 6px;
+    width: 900px;
+    margin-top: 20px;
+    margin: auto;
+}
+
+.message_title_title {
+    margin-left: -1.1em;
+    margin-right: -1.1em;
+    background-color: #ddd;
+    padding: 0.4em 1em;
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}
+
+
+table.table {
+    width: 500px;
+    border-spacing: 2px;
+    border: 1px solid grey;
+}
+
+    table.table td {
+        border: 1px solid grey;
+        padding: 5px;
+    }
+
+    table.table-search {
+    width: 800px;
+    border-spacing: 2px;
+    border: 1px solid grey;
+}
+
+    table.table-search td {
+        border: 1px solid grey;
+        padding: 5px;
+    }
+
+.decorationNo {
+    text-decoration: none;
+    color: black;
+}
+
+    .decorationNo:hover {
+        font-weight: 600;
+    }
+
+.decorationNo_2 {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.search {
+    position: relative;
+    height: 100%;
+    display: block;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    padding: 0.8em;
+    border-radius: 6px;
+    width: 900px;
+    margin-top: 20px;
+    margin: auto;
+}
+
+.search_title {
+    margin-left: -1.1em;
+    margin-right: -1.1em;
+    background-color: #ddd;
+    padding: 0.4em 1em;
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}
